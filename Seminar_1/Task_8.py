@@ -1,6 +1,3 @@
-from base64 import b16decode
-
-
 a = []
 for i in range(2):
     a.append(int(input("Введите координату точки А: ")))
