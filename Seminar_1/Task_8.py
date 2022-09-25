@@ -7,4 +7,4 @@ for i in range(2):
     b.append(int(input("Введите координату точки B: ")))
 
 result = (((b[0] - a[0])**2) + ((b[1] - a[1])**2))**0.5
-print(round(result, 2))
+print(f"А {a}; B {b} -> {round(result, 2)}")
