@@ -12,9 +12,3 @@ for i in number_set:
         result_number.append(i)
 
 print(result_number)
-
-
-
-
-
-
