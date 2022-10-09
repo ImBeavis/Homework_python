@@ -6,35 +6,35 @@ file1 = 'text.txt'
 file2 = 'text2.txt'
 file_sum = 'sum_text.txt'
 
-def read_pol(file):
+def read_file(file):
     with open(str(file), 'r') as data:
         pol = data.read()
     return pol
 
-def convert_pol(pol):
-    pol = pol.replace('= 0', '')
-    pol = re.sub("[*|^| ]", " ", pol).split('+')
-    pol = [char.split(' ') for char in pol]
-    pol = [[x for x in list if x] for list in pol]
-    for i in pol:
+def convert_file(polinom):
+    polinom = polinom.replace('= 0', '')
+    polinom = re.sub("[*|^| ]", " ", polinom).split('+')
+    polinom = [char.split(' ') for char in polinom]
+    polinom = [[x for x in list if x] for list in polinom]
+    for i in polinom:
         if i[0] == 'x': i.insert(0, 1)
         if i[-1] == 'x': i.append(1)
         if len(i) == 1: i.append(0)
-    pol = [tuple(int(x) for x in j if x != 'x') for j in pol]
-    return pol
+    polinom = [tuple(int(x) for x in j if x != 'x') for j in polinom]
+    return polinom
 
-def fold_pols(pol1, pol2):   
-    x = [0] * (max(pol1[0][1], pol2[0][1] + 1))
-    for i in pol1 + pol2:        
+def fold_pols(polinom_1, polinom_2):   
+    x = [0] * (max(polinom_1[0][1], polinom_2[0][1] + 1))
+    for i in polinom_1 + polinom_2:        
         x[i[1]] += i[0]
     res = [(x[i], i) for i in range(len(x)) if x[i] != 0]
     res.sort(key = lambda r: r[1], reverse = True)
     return res
 
-def get_sum_pol(pol):
-    var = ['*x^'] * len(pol)
-    coefs = [x[0] for x in pol]
-    degrees = [x[1] for x in pol]
+def get_sum_pol(polinom):
+    var = ['*x^'] * len(polinom)
+    coefs = [x[0] for x in polinom]
+    degrees = [x[1] for x in polinom]
     new_pol = [[str(a), str(b), str(c)] for a, b, c in (zip(coefs, var, degrees))]
     for x in new_pol:
         if x[0] == '0': del (x[0])
@@ -48,14 +48,14 @@ def get_sum_pol(pol):
     new_pol[-1] = ' = 0'
     return "".join(map(str, new_pol))
 
-def write_to_file(file, pol):
+def write_to_file(file, polinom):
     with open(file, 'w') as data:
-        data.write(pol)
+        data.write(polinom)
 
-pol1 = read_pol(file1)
-pol2 = read_pol(file2)
-pol_1 = convert_pol(pol1)
-pol_2 = convert_pol(pol2)
+pol1 = read_file(file1)
+pol2 = read_file(file2)
+pol_1 = convert_file(pol1)
+pol_2 = convert_file(pol2)
 
 pol_sum = get_sum_pol(fold_pols(pol_1, pol_2))
 write_to_file(file_sum, pol_sum)
