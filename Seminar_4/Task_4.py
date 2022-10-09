@@ -25,3 +25,12 @@ print(polynom1)
 
 with open('text.txt', 'w') as data:
     data.write(polynom1)
+
+k = int(input("Введите степень второго многочлена: "))
+
+ratios = get_degree(k) 
+polynom2 = get_polynomial(k, ratios)
+print(polynom2)
+
+with open('text2.txt', 'w') as data:
+    data.write(polynom2)
