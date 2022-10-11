@@ -16,7 +16,7 @@ else:
 
 print(f"На столе лежит {candy} конфет")
 
-while candy > 29:
+while candy > 28:
     pl1_hod = int(input(f"{first_move}, введите кол-во конфет, которое вы возьмете от 1 до 28: "))
     if 0<pl1_hod<29:
         candy = candy - pl1_hod
